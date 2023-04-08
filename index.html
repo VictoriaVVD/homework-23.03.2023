@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="components/global.js" defer></script>
+    <script src="components/cards.js" defer></script>
+    <script src="components/localStorage.js" defer></script>
+    <script src="components/functions.js" defer></script>
+    <script src="components/popup.js" defer></script>
+    <script src="script.js" defer></script>
+    <title>Project Cats</title>
+</head>
+<body>
+    <header>
+        <div>
+            <div class="logo">
+                <img src="images/animal-shelter.png" alt="">
+                <h2>Кошкин дом</h2>
+            </div>
+        </div>
+        <div class="nav-btn">
+        <a class="btn" id="reload-page" title="Обновить данные на странице"> Обновить </a>
+        <a class="btn" href="" id="add-btn">Добавить питомца</a>
+        </div>
+    </header>
+    
+    <div class="container">
+    </div>
+
+    <div class="popup-container">
+			<div class="popup" id="popup-form-add">
+				<div class="popup-close btn-primary"><i class="fa-solid fa-xmark"></i></div>
+				<h2>Добавить питомца</h2>
+				<form action="" id="add" autocomplete="off">
+					<div class="form-img"></div>
+                    <input type="text" name="name" required placeholder="Имя" />
+					<input type="number" name="age" placeholder="Возраст" />
+					<input
+						type="number"
+						name="rate"
+						placeholder="Рейтинг (0-10)"
+						min="0"
+						max="10"
+					/>
+					<textarea name="description" placeholder="Описание"></textarea>
+					<label
+						>Любимчик <input type="checkbox" name="favourite" placeholder=""
+					/></label>
+					<input type="text" name="image" placeholder="Ссылка на изображение" />
+					<button type="submit">Добавить</button>
+				</form>
+			</div>
+		</div>
+
+
+
+    <div class="popup-update-container">
+        <div class="popup-update">
+            <div class="popup-close-update btn-primary"><i class="fa-solid fa-xmark"></i></div>
+            <form action="" id="update">
+                <div class="form-img-update">
+                </div>
+                <div><label>Кличка</label>
+                    <input type="text" name="name" /></div>
+                <div><label>Возраст</label>
+                    <input type="number" name="age" /></div>
+                <div><label>Рейтинг</label>
+                    <input
+                        type="number"
+                        name="rate"
+                /></div>
+                <label>
+                Любимчик <input type="checkbox" name="favourite"  />
+                </label>
+                <div><label>Описание</label>
+                    <textarea name="description" placeholder="Описание"></textarea></div>
+                <div><label>Ссылка на изображение</label>
+                    <input type="text" name="image" /></div>
+                <button type="submit">Изменить</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

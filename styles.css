@@ -1,0 +1,389 @@
+body {
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    box-sizing: border-box;
+    font-size: 16px;
+    position: relative;
+}
+a {
+    color: #000000;
+    text-decoration: none;
+}
+
+i {
+    font-size: 1.2rem;
+}
+header, footer {
+    height: 50px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px;
+    box-shadow: 0 0 2px 0  rgb(115, 106, 204);
+}
+header {
+    background-color: rgb(236, 199, 99);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    box-shadow: 2px 2px 5px #9d8e8e;
+    display: flex;
+    justify-content: space-between;
+}
+.logo {
+    max-height: 30px;
+    max-width: 100px;
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+.logo h2 {
+    color: rgba(72, 92, 112, 1);
+}
+.logo img {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}
+h3 {
+    margin: 0;
+}
+.container {
+    background-color: rgb(238, 213, 145);
+    min-height: 100vh;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-content: flex-start;
+    gap: 30px;
+}
+.card {
+    background-color: rgb(222, 221, 245);
+    padding: 10px 10px;
+    text-align: center;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+}
+.default {
+    background-image: url(images/default\ cat.jpg);
+}
+.card-body {
+    margin-bottom: 10px;
+}
+.card-body>div {
+    vertical-align: middle;
+    margin: 10px 0;
+}
+.img__box {
+    min-height: 70%;;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.img__box img {
+    height: 100%;
+}
+.img__box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #fff8;
+    opacity: .6;
+    z-index: 2;
+    backdrop-filter: blur(.3px);
+    transition: .5s linear;
+    transition-property: backdrop-filter, background-color;
+}
+.img__box:hover::before {
+    backdrop-filter: blur(0);
+    background-color: #fff4;
+}
+.card>* {
+    position: relative;
+}
+.card-title {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+.card__like {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    color: crimson;
+}
+.btn {
+    background-color: rgb(115, 106, 204);
+    text-align: center;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 10px;
+    opacity: .65;
+    box-shadow: 2px 2px 10px #635f5f;
+    text-align: center;
+    font-weight: 500;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 12px;
+    min-height: 20px;
+    border: none;
+}
+.btn-primary {
+    text-align: center;
+    padding: 10px 10px;
+    border-radius: 10px;
+    opacity: .5;
+    text-align: center;
+    font-weight: 500;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 12px; 
+    background-color: transparent;
+    border: none;
+}
+.btn:hover, .btn-primary:hover{
+    color: #000;
+    background-color: rgb(255, 140, 66);
+    box-shadow: 2px 2px 10px #635f5f;
+    cursor: pointer;
+}
+.popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.661);
+    z-index: 25;
+    visibility: hidden;
+}
+.popup {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 0 2px 0 #0004;
+    position: relative;
+    z-index: 25;
+    transition: all .8s ease 0s;
+    opacity: 0;
+    transform: perspective(600px) translate(0px, -100%) rotateX(45deg);
+    visibility: hidden;
+}
+.popup_open {
+    visibility: visible;
+}
+.popup-animation {
+    transform: perspective(600px) translate(0px, 0px) rotateX(0deg);
+    opacity: 1;
+}
+.popup-close {
+    width: max-content;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+.popup h2 {
+    margin: 0 0 20px;
+    text-align: center;
+}
+.popup-container-cat-card {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.661);
+    z-index: 25;
+    display: flex;
+    flex-direction: column;
+    margin-right: 0;    
+}
+.popup-cat-card {
+    width: 60%;
+    height: 100%;
+    min-width: 500px;
+    margin: 30px;
+    padding: 20px;
+    border: 1px solid rgb(115, 106, 204);
+    border-radius: 10px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    color: #ffffff;
+    z-index: 25;
+}
+.popup-close-cat-card {
+    width: max-content;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    z-index: 25;
+}
+.popup-update-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.661);
+    z-index: 25;
+    display: flex;
+    flex-direction: column;
+    margin-right: 0;
+    visibility: hidden;
+}
+.popup-update {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 0 2px 0 #0004;
+    position: relative;
+    z-index: 25;
+}
+.popup-close-update {
+    width: max-content;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+.form-img-update {
+    grid-row-end: span 3;
+    border-radius: 4px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-image: url(images/animal-shelter.png);
+}
+form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-content: center;
+}
+.form-img {
+    grid-row-end: span 3;
+    border-radius: 4px;
+    background: url(images/default\ cat.jpg) no-repeat center / contain;
+}
+.form_img_show {
+    width: 100%;
+    height: 80%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 0;
+    margin: 10px 0;
+    border-radius: 10px;
+}
+input, textarea {
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #0002;
+    height: 30px;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+input, textarea, textarea::placeholder {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 12px;
+}
+input:focus, textarea:focus {
+    box-shadow: 0 0 2px 0 #0004;
+}
+input[type="checkbox"] {
+    width: initial;
+    height: initial;
+    box-sizing: initial;
+}
+label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    padding: 4px 8px;
+    font-weight: 600;
+}
+textarea {
+    height: 100%;
+    resize: vertical;
+}
+form button, .btn button {
+    border: none;
+    border-radius: 4px;
+    background-color: rgb(246, 222, 157);
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+    height: 30px;
+    justify-self: flex-end;
+    align-self: flex-end;
+}
+form button:hover {
+    background-color: rgb(235, 196, 89);
+    box-shadow: 0 0 2px 0 #0004;
+}
+
+@media (min-width: 350px) and (max-width: 549px) {
+    .container {
+        grid-template-columns: repeat(1, 1fr);
+        align-content: center;
+        justify-content: center;
+    }
+    .nav-btn {
+        display: flex;
+        flex-direction: column;
+    }
+    header {
+        height: 80px;
+    }
+    .card {
+        max-height: 300px;
+        max-width: 300px;
+        justify-content: center;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 550px) and (max-width: 765px) {
+    .container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (min-width: 766px) and (max-width: 1039px) {
+    .container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (min-width: 1040px) {
+    .container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
