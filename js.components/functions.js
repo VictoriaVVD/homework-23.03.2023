@@ -1,5 +1,5 @@
 // Начальное добавление существующих котов из БД на страницу + обновление
-console.log(cards.length);
+
 if (cards.length == 0) {
     createCardFromDatabase()
 };
@@ -83,13 +83,13 @@ function addCat(cat) {
     })
     .then((res) => {
         if (res.status === 200) {
-            container.innerHTML = "";
             cats.push(cat);
-            storage.setItem("cats-data", JSON.stringify(cats));
+            container.innerHTML = "";
             cats.forEach(cat => {
                 container.innerHTML += createCard(cat);
             });
-            addForm.reset()
+            addForm.reset();
+            storage.setItem("cats-data", JSON.stringify(cats));
         } else {
             alert(data.message);
         }
@@ -102,13 +102,11 @@ function addCat(cat) {
 
 function deleteCard (id, el) {
     let card = el.parentElement.parentElement;
-    console.log(card);
     if (id) {
         return fetch(`${path}delete/${id}`, {
             method: 'DELETE'
         })
         .then(res => {
-            console.log(res);
             if (res.status === 200) {
                 card.remove();
                 cats = cats.filter(el => el.id !== id);
@@ -121,7 +119,7 @@ function deleteCard (id, el) {
 // Функция изменения кота
 
 function updateCard (cat) {
-  fetch(`${path}update/${cat.id}`, {
+    fetch(`${path}update/${cat.id}`, {
         method: 'PUT',
         body: JSON.stringify(cat),
         headers: {
@@ -129,69 +127,43 @@ function updateCard (cat) {
         },
     })
     .then(res => {
-       console.log(res);
-       if (res.status === 200) {
-        
-            // console.log(cats);
-            // cats.forEach(el => {
-            //     if (el.id === cat.id) {
-            //         console.log(el);
-            //        return el
-            //     }
-            //     return cat
-            // });
-            // console.log(cats);
-            // storage.setItem("cats-data", JSON.stringify(cats));
-            // console.log(cats);
-            // container.innerHTML = "";
-            // cats.forEach(cat => {
-            //     container.innerHTML += createCard(cat);
-            // })
+        if (res.status === 200) {            
             alert('Изменения внесены!')
-            reload()
-            
         } else {
             alert(data.message);
         }
-        return res.json()
     })
 
 };
 
 function setLike(cat, el) {
     cat = cats.find(el => el.id === cat)
-    console.log(cat);
     let card = el.lastElementChild;
-    console.log(card); 
 
     if (cat.id) {
-                        return fetch(`${path}update/${cat.id}`, {
-                            method: 'PUT',
-                            body: JSON.stringify({favourite: !cat.favourite}),
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                        })
-                        .then(res => {
-                            if (res.status === 200) {
-                                card.classList.toggle("fa-solid");
-                                card.classList.toggle("fa-regular");
-                                cats = cats.map(catEl => {
-                                    if (catEl.id === cat.id) {
-                                        catEl.favourite = !cat.favourite;
-                                    }
-                                    return catEl;
-                                });
-                                storage.setItem('cats-data', JSON.stringify(cats));
-                            };
-                        });
-                    };
+        return fetch(`${path}update/${cat.id}`, {
+            method: 'PUT',
+            body: JSON.stringify({favourite: !cat.favourite}),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        .then(res => {
+            if (res.status === 200) {
+                card.classList.toggle("fa-solid");
+                card.classList.toggle("fa-regular");
+                cats = cats.map(catEl => {
+                    if (catEl.id === cat.id) {
+                        catEl.favourite = !cat.favourite;
+                    }
+                    return catEl;
+                });
+                storage.setItem('cats-data', JSON.stringify(cats));
+                container.innerHTML = "";
+                    cats.map(cat => {
+                        container.innerHTML += createCard(cat);
+                    });
+            };
+        });
+    };
 }
-
-//    function showCard (cat, id) {
-//         	let content = document.getElementsByClassName('container')[0];
-//             cat = cats.find(cat => cat.id === id);
-//         	content.insertAdjacentHTML('afterbegin', generateCatCardShowPopup(cat));
-// };
-
-

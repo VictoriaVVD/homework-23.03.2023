@@ -28,7 +28,7 @@ function generateCatCardShowPopup (cat) {
                     <div style="font-size: 18px">Кличка: ${cat.name}</div>
                     <div class="form_img_show" style="background-image: url('${cat.image || "images/default\ cat.jpg"}')"></div>
                     <div class="card-body">
-                        <div>Рейтинг котика: ${cat.rate}</div>
+                        <div>Рейтинг котика: ${cat.rate || "Рейтинг не указан"}</div>
                         <div>Возраст: ${cat.age || "Возраст не указан"}</div>
                         <div>Описание: ${cat.description || "Информации пока нет..."}</div>
                     </div>
@@ -44,7 +44,7 @@ const generateCatCardUpdatePopup = (cat) => {
                 <div class="popup-update">
                     <div class="popup-close-update btn-primary"><i class="fa-solid fa-xmark"></i></div>
                     <form action="" id="update" autocomplete="off">
-                        <div class="form-img-update" style="background-image: url(${cat.image || images/animal-shelter.png})">
+                        <div class="form-img-update" style="background-image: url(${cat.image})">
                         </div>
                         <div><label>Кличка</label>
                             <input type="text" name="name">${cat.name}<div>
@@ -54,7 +54,7 @@ const generateCatCardUpdatePopup = (cat) => {
                             <input
                                 type="number"
                                 name="rate"
-                        />${cat.rate}</div>
+                        />${cat.rate || "Рейтинг не указан"}</div>
                         <label>
                         Любимчик <input type="checkbox" name="favourite" checked/>
                         </label>

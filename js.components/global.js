@@ -15,6 +15,6 @@ const popupUpdateBox = document.querySelector('.popup-update-container');
 const popupUpdate = document.querySelector('.popup-update');
 const popupUpdateClose = document.querySelector('.popup-close-update');
 
-const addForm = document.forms.add;
+const addForm = document.querySelector('#add');
 const updateForm = document.forms.update;
 

@@ -2,7 +2,7 @@
 
 function showCard (cat) {
     cat = cats.find(el => el.id === cat)
-    console.log(cat);
+
 	const content = document.getElementsByClassName('container')[0];
 	content.insertAdjacentHTML('afterbegin', generateCatCardShowPopup(cat));
     showCardClose();
@@ -24,52 +24,58 @@ function showCardClose () {
 
 // Открытие модального окна изменения карточки
 
-function showUpdateForm (cat) {
-    cat = cats.find(el => el.id === cat)
+function showUpdateForm (cat, el) {
+    let cats = JSON.parse(storage.getItem('cats-data'));
+    cat = cats.find(el => el.id === cat);
+    let card = el.lastElementChild;
+
     popupUpdate.style.visibility = 'visible';
     popupUpdateBox.style.visibility = 'visible';
 	
     const content = document.getElementsByClassName('container')[0];
 	content.insertAdjacentHTML('afterbegin', generateCatCardUpdatePopup(cat));
-    // const cardImgBox = document.querySelector('.form-img-update');
-    // if (!cat.image) {
-    //     cardImgBox.style.backgroundImage = "url(images/default\ cat.jpg)";
-    // } else {
-    //     cardImgBox.style.backgroundImage = `url(${cat.image})`;
-    // }
-    
-    Array.from(updateForm.elements).map((el) => {
-        if (el.name) {
-            console.log(el.name);
-            if (el.type === 'checkbox') {
-                if (cat[el.name]) {
-                    el.checked};
-            } else {
-                el.value = cat[el.name];
+
+    let imgBox = document.querySelectorAll('.form-img-update')[1];
+    imgBox.style.backgroundImage = `url(${cat.image})`;
+    console.log(imgBox);
+
+    for (let key in cat) {
+        console.log(key);
+        if (key != 'id') {
+            if (updateForm.elements[key].type === 'checkbox' && cat[key] === 'true') {
+                updateForm.element[key].checked === 'true';
+                // setLike(cat, card);
             }
-        };
-    }); 
+            else {
+                updateForm.elements[key].value = cat[key];
+            }
+            container.innerHTML = "";
+            cats.map(cat => {
+                container.innerHTML += createCard(cat);
+            })
+            storage.setItem("cats-data", JSON.stringify(cats));
+        }  
+    }
+
+    updateForm.addEventListener('input', function(event) { 
+        cat[event.target.name] = event.target.value;
+        storage.setItem("cats-data", JSON.stringify(cats));
+        container.innerHTML = "";
+            cats.map(cat => {
+                container.innerHTML += createCard(cat);
+
+    })
 
 // Вызов формы редактирования карточки
 
     updateForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const checkboxBtn = e.target.querySelector('[type=\"checkbox\"]');
-        console.log(checkboxBtn);
-        checkboxBtn.addEventListener('change', (e) => console.log(checkbox));
-        const updateFormData = new FormData(e.target);
+        updateCard(cat); 
+        storage.setItem('cats-data', JSON.stringify(cats));
 
-        let catUpd = Object.fromEntries(updateFormData.entries());
-        catUpd = {id: cat.id, ...catUpd}
-        
-        // if (catUpd.favourite === 'on') {
-        //     setLike(catUpd, card)
-        // };
-
-        updateCard(catUpd); 
-        updateForm.reset();  
         popupUpdate.style.visibility = 'hidden';
         popupUpdateBox.style.visibility = 'hidden';
+        })
     })
 }
 
@@ -98,30 +104,23 @@ popupClose.addEventListener('click', (e) => {
     popupBox.classList.remove('popup_open');
 });
 
-addForm.addEventListener('submit', (e) => {
+
+addForm.addEventListener('input', function(event){
+    let cat = {};
+    cat[event.target.name] = event.target.value;
+})
+
+addForm.addEventListener('submit', e => {
     e.preventDefault();
-    const cat = {};
-
-    for (let i = 0; i < addForm.elements.length; i++) {
-        let input = addForm.elements[i];
-        if (input.name) {
-            if (input.type === "checkbox") {
-                cat[input.name] = input.checked;
-            } else {
-                cat[input.name] = input.value;
-            }
-        }
-    }
-
     addCat(cat); 
 
     popup.classList.remove('popup_open', 'popup-animation');
     popupBox.classList.remove('popup_open');
-});
+})
 
 document.addEventListener('click', (e) => {
     if (e.target === popupBox) {
         popup.classList.remove('popup_open', 'popup-animation');
         popupBox.classList.remove('popup_open');
     }
-});
+})
